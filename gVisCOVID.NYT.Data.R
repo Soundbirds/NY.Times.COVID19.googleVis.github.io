@@ -1,5 +1,5 @@
   
-  gVisCOVID.NYT.Data <- function(countyStates = NULL, Print = FALSE) {
+  gVisCOVID.NYT.Data <- function(countyStates = NULL, width = 1365, height = 768, Print = FALSE) {
       
       library(googleVis)
       library(RCurl)
@@ -58,7 +58,7 @@
           options(oldOpt)
 
           Ms <- googleVis::gvisMotionChart(usStates[usStates$date > "2020-02-24", ], idvar = 'state', timevar = 'date', 
-               xvar = 'deaths',  yvar = 'cases', sizevar = 'nwDthsPer1knwCasesMthAgo', colorvar = 'logNewDeaths', options=list(width = 1365, height = 768))
+               xvar = 'deaths',  yvar = 'cases', sizevar = 'nwDthsPer1knwCasesMthAgo', colorvar = 'logNewDeaths', options=list(width = width, height = height))
          
           if(Print)
              googleVis:::print.gvis(Ms, file = 'COVID_states.htm')  
@@ -128,7 +128,7 @@
            
           # Counties inside 4 states 
           Mc <- googleVis::gvisMotionChart(usCounties[usCounties$date > "2020-02-24", ], idvar = 'countyState', timevar = 'date', 
-               xvar = 'deaths',  yvar = 'cases', sizevar = 'nwDthsPer1knwCasesMthAgo', colorvar = 'logNewDeaths', options=list(width = 1365, height = 768))
+               xvar = 'deaths',  yvar = 'cases', sizevar = 'nwDthsPer1knwCasesMthAgo', colorvar = 'logNewDeaths', options=list(width = width, height = height))
                  
           if(Print)
              googleVis:::print.gvis(Mc, file = 'COVID_counties.htm')  
@@ -137,4 +137,5 @@
      }
   }    
   
+
 
