@@ -27,19 +27,22 @@
             stateCD <- data.frame(date = stateData$date, state = stateData$state, newCases = c(0, diff(stateData$cases)), newDeaths = c(0, diff(stateData$deaths)))
             # print(c(i, nrow(stateCD)))       
             NewByStateCD <- rbind(NewByStateCD, stateCD)
-            # Checked 'Rule of 70' but just the inverse (i.e. 100 instead of 70) appears more accuate for this data
+            # Checked 'Rule of 70' but just the (mathematical) inverse (i.e. 100 instead of 70) appears more accuate for this data
             # caseDoubleByState <- rbind(caseDoubleByState, data.frame(date = stateData$date, state = stateData$state, casesStateDoublingRate = c(0, 70/(100 * diff(log(stateData$cases, 2))))))
             caseDoubleByState <- rbind(caseDoubleByState, data.frame(date = stateData$date, state = stateData$state, casesStateDoublingRate = c(0, 1/diff(log(stateData$cases, 2)))))
-            if(nrow(stateCD) > 21)
-                deathsPer1000 <- rbind(deathsPer1000, data.frame(date = stateData$date, state = stateData$state, nwDthsPer1knwCases2WkAgo = 
-                               1000 * stateCD$newDeaths/c(rep(NA, 14), ma(stateCD$newCases, 21)[1:(length(stateCD$newCases) - 14)])))
-         }
+            if(nrow(stateCD) > 21) 
+                   deathsPer1000 <- rbind(deathsPer1000, data.frame(date = stateData$date, state = stateData$state, nwDthsPer1knwCases2WkAgo = 
+                               1000 * stateCD$newDeaths/c(rep(NA, 14), ma(stateCD$newCases, 21)[1:(length(stateCD$newCases) - 14)]), nwDthsPer1knwCasesMthAgo = 
+                               if(nrow(stateCD) > 28) 1000 * stateCD$newDeaths/c(rep(NA, 28), ma(stateCD$newCases, 21)[1:(length(stateCD$newCases) - 28)])
+                               else rep(NA, nrow(stateCD)) ))
+          }
           
-          usStates <-  match.f(usStates, NewByStateCD, c('date', 'state'), c('date', 'state'), c('newCases', 'newDeaths'))
-          usStates <-  match.f(usStates, caseDoubleByState, c('date', 'state'), c('date', 'state'), 'casesStateDoublingRate')
+          usStates <- match.f(usStates, NewByStateCD, c('date', 'state'), c('date', 'state'), c('newCases', 'newDeaths'))
+          usStates <- match.f(usStates, caseDoubleByState, c('date', 'state'), c('date', 'state'), 'casesStateDoublingRate')
           usStates$casesStateDoublingRate[!is.finite(usStates$casesStateDoublingRate) | usStates$casesStateDoublingRate < 0| usStates$casesStateDoublingRate > 200] <- NA
-          usStates <-  match.f(usStates, deathsPer1000, c('date', 'state'), c('date', 'state'), 'nwDthsPer1knwCases2WkAgo')
+          usStates <- match.f(usStates, deathsPer1000, c('date', 'state'), c('date', 'state'), c('nwDthsPer1knwCases2WkAgo', 'nwDthsPer1knwCasesMthAgo'))
           usStates$nwDthsPer1knwCases2WkAgo[!is.finite(usStates$nwDthsPer1knwCases2WkAgo) | usStates$nwDthsPer1knwCases2WkAgo < 0 | usStates$nwDthsPer1knwCases2WkAgo > 1000] <- NA
+          usStates$nwDthsPer1knwCasesMthAgo[!is.finite(usStates$nwDthsPer1knwCasesMthAgo) | usStates$nwDthsPer1knwCasesMthAgo < 0 | usStates$nwDthsPer1knwCasesMthAgo > 1000] <- NA
           
           
           oldOpt <- options(warn = -1)
@@ -55,7 +58,7 @@
           options(oldOpt)
 
           Ms <- googleVis::gvisMotionChart(usStates[usStates$date > "2020-02-24", ], idvar = 'state', timevar = 'date', 
-               xvar = 'deaths',  yvar = 'cases', sizevar = 'nwDthsPer1knwCases2WkAgo', colorvar = 'logNewDeaths', options=list(width = 1365, height = 768))
+               xvar = 'deaths',  yvar = 'cases', sizevar = 'nwDthsPer1knwCasesMthAgo', colorvar = 'logNewDeaths', options=list(width = 1365, height = 768))
          
           if(Print)
              googleVis:::print.gvis(Ms, file = 'COVID_states.htm')  
@@ -85,19 +88,22 @@
             countyCD <- data.frame(date = countyData$date, countyState = countyData$countyState, newCases = c(0, diff(countyData$cases)), newDeaths = c(0, diff(countyData$deaths)))
             # print(c(i, nrow(countyCD)))       
             NewByCountyCD <- rbind(NewByCountyCD, countyCD)
-            # Checked 'Rule of 70' but just the inverse (i.e. 100 instead of 70) appears more accuate for this data
+            # Checked 'Rule of 70' but just the (mathematical) inverse (i.e. 100 instead of 70) appears more accuate for this data
             # caseDoubleByCounty <- rbind(caseDoubleByCounty, data.frame(date = countyData$date, county = countyData$county, casesCountyDoublingRate = c(0, 70/(100 * diff(log(countyData$cases, 2))))))
             caseDoubleByCounty <- rbind(caseDoubleByCounty, data.frame(date = countyData$date, countyState = countyData$countyState, casesCountyDoublingRate = c(0, 1/diff(log(countyData$cases, 2)))))
             if(nrow(countyCD) > 21)
-                deathsPer1000 <- rbind(deathsPer1000, data.frame(date = countyData$date, countyState = countyData$countyState, nwDthsPer1knwCases2WkAgo = 
-                               1000 * countyCD$newDeaths/c(rep(NA, 14), ma(countyCD$newCases, 21)[1:(length(countyCD$newCases) - 14)])))
+               deathsPer1000 <- rbind(deathsPer1000, data.frame(date = countyData$date, countyState = countyData$countyState, nwDthsPer1knwCases2WkAgo = 
+                               1000 * countyCD$newDeaths/c(rep(NA, 14), ma(countyCD$newCases, 21)[1:(length(countyCD$newCases) - 14)]), nwDthsPer1knwCasesMthAgo = 
+                               if(nrow(countyCD) > 28) 1000 * countyCD$newDeaths/c(rep(NA, 28), ma(countyCD$newCases, 21)[1:(length(countyCD$newCases) - 28)]) 
+                               else rep(NA, nrow(countyCD)) ))
          }    
           
           usCounties <-  match.f(usCounties, NewByCountyCD, c('date', 'countyState'), c('date', 'countyState'), c('newCases', 'newDeaths'))
           usCounties <-  match.f(usCounties, caseDoubleByCounty, c('date', 'countyState'), c('date', 'countyState'), 'casesCountyDoublingRate')
           usCounties$casesCountyDoublingRate[!is.finite(usCounties$casesCountyDoublingRate) | usCounties$casesCountyDoublingRate < 0| usCounties$casesCountyDoublingRate > 200] <- NA
-          usCounties <-  match.f(usCounties, deathsPer1000, c('date', 'countyState'), c('date', 'countyState'), 'nwDthsPer1knwCases2WkAgo')
+          usCounties <-  match.f(usCounties, deathsPer1000, c('date', 'countyState'), c('date', 'countyState'), c('nwDthsPer1knwCases2WkAgo', 'nwDthsPer1knwCasesMthAgo'))
           usCounties$nwDthsPer1knwCases2WkAgo[!is.finite(usCounties$nwDthsPer1knwCases2WkAgo) | usCounties$nwDthsPer1knwCases2WkAgo < 0 | usCounties$nwDthsPer1knwCases2WkAgo > 1000] <- NA
+          usCounties$nwDthsPer1knwCasesMthAgo[!is.finite(usCounties$nwDthsPer1knwCasesMthAgo) | usCounties$nwDthsPer1knwCasesMthAgo < 0 | usCounties$nwDthsPer1knwCasesMthAgo > 1000] <- NA
           
           
           oldOpt <- options(warn = -1)
@@ -122,7 +128,7 @@
            
           # Counties inside 4 states 
           Mc <- googleVis::gvisMotionChart(usCounties[usCounties$date > "2020-02-24", ], idvar = 'countyState', timevar = 'date', 
-               xvar = 'deaths',  yvar = 'cases', sizevar = 'nwDthsPer1knwCases2WkAgo', colorvar = 'logNewDeaths', options=list(width = 1365, height = 768))
+               xvar = 'deaths',  yvar = 'cases', sizevar = 'nwDthsPer1knwCasesMthAgo', colorvar = 'logNewDeaths', options=list(width = 1365, height = 768))
                  
           if(Print)
              googleVis:::print.gvis(Mc, file = 'COVID_counties.htm')  
@@ -131,3 +137,4 @@
      }
   }    
   
+
