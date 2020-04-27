@@ -20,24 +20,25 @@ The website for the state data is updated daily (17" or larger screen recomended
 After installing the necessary libraries from CRAN, the state data can be interactively plottted using the gVisCOVID.NYT.Data() function, adjust the width and height to your screen:
 
 
-      install.packages(c('googleVis, 'RCurl', 'housingData'))      
-      gVisCOVID.NYT.Data()
+      install.packages(c('googleVis', 'RCurl', 'housingData'))      
+      gVisCOVID.NYT.Data()  
       
       # For smaller screens reduce the width and height
-      gVisCOVID.NYT.Data(width = 700, height = 400)
+      gVisCOVID.NYT.Data(width = 700, height = 400) # The default is: width = 1400, height = 800
+      
+      # For larger screens increase the width and height
+      gVisCOVID.NYT.Data(width = 1400 * 1.5, height = 800 * 1.5) 
      
 
 The website for the county data is updated daily here: https://soundbirds.github.io/NY.Times.COVID19.googleVis.github.io/COVID_counties.htm
 
-the county data can be interactively plottted by listing the states in the gVisCOVID.NYT.Data() function, adjust the width and height to your screen.
-
-For the county data, selecting too many states may be slow. 
+The county data can be interactively plottted by listing the states in the gVisCOVID.NYT.Data() function. For the county data, selecting too many states may be slow. 
 
 Note, that I have added extra unique codes to the fips (Federal Information Processing Standards) unique county codes since they are missing for the added cities (e.g. New York) and unknown county within a state.
 
 
 
-      # install.packages(c('googleVis, 'RCurl', 'housingData'))   
+      # install.packages(c('googleVis', 'RCurl', 'housingData'))   
       
       gVisCOVID.NYT.Data(c('Washington', 'New York', 'Michigan'))
       
