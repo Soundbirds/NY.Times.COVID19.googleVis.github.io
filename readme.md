@@ -21,8 +21,8 @@ The website for the state data is updated daily (17" or larger screen recomended
 
 After installing the necessary libraries from CRAN, the state data can be interactively plottted using the gVisCOVID.NYT.Data() function (downloaded from this repo), adjust the width and height to your screen:
 
-
-      install.packages(c('googleVis', 'RCurl'), type = "win.binary")  # Installing RCurl from source may be an issue. "win.binary" option will be ignored on Unix-alikes
+      # Installing RCurl from source may be an issue. The "win.binary" option will be ignored on Unix-alikes
+      install.packages(c('googleVis', 'RCurl'), type = "win.binary")  
       gVisCOVID.NYT.Data()  
       
       # For smaller screens reduce the width and height
