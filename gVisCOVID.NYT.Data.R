@@ -3,8 +3,7 @@
       
       library(googleVis)
       library(RCurl)
-      library(housingData)
-      
+            
       ma <- function(x, n = 21) { stats::filter(x, rep(1 / n, n), sides = 2) }
       
       # gvisMotionChart on State data
@@ -14,7 +13,7 @@
           # usStates <- JRWToolBox::gitAFile("nytimes/covid-19-data/master/us-states.csv", 'csv', verbose = TRUE) # Code below from my JRWToolBox::gitAFile() function
           # Note the need to use 'https://raw.githubusercontent.com' without 'blob', but with 'master' in the URL. This has to be correct, otherwise the reuslt is html code or something broken.
           
-          usStates <- read.csv(textConnection(getURL("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")))
+          usStates <- read.csv(textConnection(RCurl::getURL("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")))
           usStates$date <- as.Date(usStates$date)
           cat("\nStates' data latest date:", format(usStates$date[nrow(usStates)]), "\n\n")
           
@@ -71,7 +70,7 @@
       
       if(!is.null(countyStates)) {  
       
-          usCounties <- read.csv(textConnection(getURL("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")))
+          usCounties <- read.csv(textConnection(RCurl::getURL("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")))
           usCounties$date <- as.Date(usCounties$date)
           usCounties$cases[usCounties$deaths > usCounties$cases] <- (usCounties$cases + usCounties$deaths)[usCounties$deaths > usCounties$cases] 
           # usCounties$deathsPer1000Cases <- 1000 * usCounties$deaths/usCounties$cases  # Not enough cases within some counties
