@@ -1,7 +1,7 @@
 
 Data visualization of the NY Times COVID-19 data (https://github.com/nytimes/covid-19-data) via R code using the googleVis package (https://github.com/mages/googleVis). With GitHub, the git app, and R coding the website is automatically updated with new NY Times data at an interval set in the 'mainloop.R' script.
 
-Many addtional 
+Many additional ways to view that data have been added, including the number of new deaths per 1000 new cases 1 month ago: nwDthsPer1knwCasesMthAgo, the number of new deaths per 1000 new cases 2 weeks ago: nwDthsPer1knwCases2WkAgo, and doubling times: casesStateDoublingRate.  Note that doubling times is the only variable where being longer (a larger number) is good.  Logs of many variables are included so that they can be used for the size and color of the circles, when desired. Using the built-in log of the x and y axes is recommended since the numbers shown when hovering with the mouse cursor will still be the unlogged value.
 
 Browser requirements:
 
@@ -15,7 +15,7 @@ The website for the state data is updated daily (17" or larger screen recomended
 - Single left mouse click on a circle to select (or unselect) a state, or select the states manually from the list. 
 - The playback speed can be adjusted using the dial immediately to the right of the play button. 
 - Hovering the mouse curser over any point will show all the data for that point.
-- Hovering the mouse curser over the name of selected state hightlights the last point in that time series.
+- Hovering the mouse curser over the name of selected state highlights the last point in that time series.
 - Try changing both the x and y axis to log scale.
 - Note that the x-variable can be switched to 'Time' after loading into the web browser is completed (googleVis hangs if xvar starts with the timevar).
 
@@ -34,7 +34,7 @@ After installing the necessary libraries from CRAN, the state data can be intera
 
 The website for the county data is updated daily here: https://soundbirds.github.io/NY.Times.COVID19.googleVis.github.io/COVID_counties.htm
 
-The county data can be interactively plottted by listing the states in the gVisCOVID.NYT.Data() function. For the county data, selecting too many states may be slow. 
+The county data can be interactively plotted by listing the states in the gVisCOVID.NYT.Data() function. For the county data, selecting too many states may be slow. 
 
 Note, that I have added extra unique codes to the fips (Federal Information Processing Standards) unique county codes since they are missing for the added cities (e.g. New York) and unknown county within a state.
 
