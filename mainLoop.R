@@ -1,10 +1,11 @@
-# dir.create("C:/Users/John/", showWarnings = FALSE, recursive = TRUE)
 
 while(TRUE) {
     
+    # Initial setup
     setwd("C:/Users/John/")
     system(paste0("rm -r -f ", "NY.Times.COVID19.googleVis.github.io")) # Make sure this dir is deleted
     
+    # Download function and scripts from GitHub
     shell("echo git config --global user.name 'John Wallace' > run.bat")
     shell("echo git config --global user.email 'soundbirds@gmail.com'  >> run.bat")
     shell("echo git clone https://github.com/Soundbirds/NY.Times.COVID19.googleVis.github.io.git  >> run.bat")
@@ -14,16 +15,22 @@ while(TRUE) {
     shell("del run.bat")
     Sys.sleep(3)
     
+    # Run functions in R, downloading new state and county data from the NYT repo, and creating new html's using the googleVis package
     setwd("C:/Users/John/NY.Times.COVID19.googleVis.github.io")
     source('gVisCOVID.NYT.Data.R')
-    source('updateGvisFigs.R')
+    try(gVisCOVID.NYT.Data(width = 1365, height = 768, Print = TRUE))  # States
+    try(gVisCOVID.NYT.Data(c('Washington', 'New York', 'Michigan'), width = 1365, height = 768, Print = TRUE))  # Counties within the listed states (too many states is slow)
+    #  gVisCOVID.NYT.Data(width = 1365 * 1.5, height = 768 * 1.5, Print = FALSE)  # For interactive plotting to large screens
+    
+    # Push the updated html back to Github
     shell("start Push.bat")
     Sys.sleep(15)
     setwd("C:/Users/John/")
     system(paste0("rm -r ", "NY.Times.COVID19.googleVis.github.io"))
     timestamp()
    
-    hoursPause <- 3  # Hours to pause; gives the time that has elapsed every 30 minutes
+    # Pause the given hours until the process is repeated
+    hoursPause <- 2  # Hours to pause; gives the time that has elapsed every 30 minutes
     cat("\n\nStarting to pause for", hoursPause, "hours\n")
     for(i in 1:(hoursPause * 2)) {
        Sys.sleep(30 * 60)
