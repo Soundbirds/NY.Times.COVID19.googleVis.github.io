@@ -5,60 +5,44 @@ Browser requirements:
 
 The browser needs to allow the Adobe Flash player to run, Firefox and Opera both make this an easy 2 clicks with clear prompting.
     
-For Chrome see:
-      https://support.google.com/chrome/answer/6258784?co=GENIE.Platform%3DDesktop&hl=en
+For Chrome, click on the lock icon to the left of the URL, change the 'Flash' to 'Allow' via the pull down menu, click outside of the lock icon box, and click 'Reload'.  If that doesn't work or the lock icon isn't available see: https://support.google.com/chrome/answer/6258784?co=GENIE.Platform%3DDesktop&hl=en
     
    
-The website for all 50 states is updated daily here (17" or larger screen recomended): https://soundbirds.github.io/NY.Times.COVID19.googleVis.github.io/COVID_states.htm
+The website for the state data is updated daily (17" or larger screen recomended): https://soundbirds.github.io/NY.Times.COVID19.googleVis.github.io/COVID_states.htm
  
-- Make an initial run without selecting any states.
 - Single left mouse click on a circle to select (or unselect) a state, or select the states manually from the list. 
-- After selection is complete, rerun.  The playback speed can be adjusted using the dial immediately to the right of the play button. 
+- The playback speed can be adjusted using the dial immediately to the right of the play button. 
 - Hovering the mouse curser over any point will show all the data for that point.
 - Hovering the mouse curser over the name of selected state hightlights the last point in that time series.
 - Try changing both the x and y axis to log scale.
 - Note that the x-variable can be switched to 'Time' after loading into the web browser is completed (googleVis hangs if xvar starts with the timevar).
 
-The state data R code is below, adjust the width and height to your screen:
+After installing the necessary libraries from CRAN, the state data can be interactively plottted using the gVisCOVID.NYT.Data() function, adjust the width and height to your screen:
 
 
-      library(googleVis)
-      library(RCurl)
-
-      # Note the need to use 'https://raw.githubusercontent.com' without 'blob', but with 'master' in the URL. This has to be correct, otherwise the result is html code or something broken.
-      usStates <- read.csv(textConnection(getURL("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")))
-      usStates$date <- as.Date(usStates$date)
-      usStates$newCases <- c(0, diff(usStates$cases))
-      usStates$newDeaths <- c(0, diff(usStates$deaths))
- 
-      plot(gvisMotionChart(usStates[usStates$date > "2020-02-24", ], idvar = 'state', timevar = 'date', 
-           xvar = 'deaths',  yvar = 'cases', sizevar = 'newCases', colorvar = 'newDeaths', options=list(width = 1024, height = 768)))
-
+      install.packages(c('googleVis, 'RCurl', 'housingData'))      
+      gVisCOVID.NYT.Data()
+      
+      # For smaller screens reduce the width and height
+      gVisCOVID.NYT.Data(width = 700, height = 400)
+     
 
 The website for the county data is updated daily here: https://soundbirds.github.io/NY.Times.COVID19.googleVis.github.io/COVID_counties.htm
 
-For the county data, selecting too many states whose counties are displayed (last plot example) may be slow.
-(Note, I do not use the fips (Federal Information Processing Standards) unique county codes since they are missing for the added cities (e.g. New York) and unknown county within a state data.)
+the county data can be interactively plottted by listing the states in the gVisCOVID.NYT.Data() function, adjust the width and height to your screen.
+
+For the county data, selecting too many states may be slow. 
+
+Note, that I have added extra unique codes to the fips (Federal Information Processing Standards) unique county codes since they are missing for the added cities (e.g. New York) and unknown county within a state.
 
 
-      library(googleVis)
-      library(RCurl)
+
+      # install.packages(c('googleVis, 'RCurl', 'housingData'))   
       
-      usCounties <- read.csv(textConnection(getURL("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")))
-      usCounties$date <- as.Date(usCounties$date)
-      usCounties$newCases <- c(0, diff(usCounties$cases))
-      usCounties$newDeaths <- c(0, diff(usCounties$deaths))
-      usCounties$countyState <- paste(usCounties$county, usCounties$state, sep="_")
- 
-      State <- c('Washington', 'New York', 'California')[1]
-      plot(gvisMotionChart(usCounties[usCounties$state %in% State & usCounties$date > "2020-02-24", ], idvar = 'county', timevar = 'date', 
-                 xvar = 'deaths',  yvar = 'cases', sizevar = 'newCases', colorvar = 'newDeaths', options=list(width = 1024, height = 768)))
-       
-      # Counties inside 4 states 
-      States <- c('Washington', 'New York', 'California', 'Louisiana')  # Switch states as desired - too many states is slow
-      plot(gvisMotionChart(usCounties[usCounties$state %in% States & usCounties$date > "2020-02-24", ], idvar = 'countyState', timevar = 'date', 
-                 xvar = 'deaths',  yvar = 'cases', sizevar = 'newCases', colorvar = 'newDeaths', options=list(width = 1024, height = 768)))
-                        
+      gVisCOVID.NYT.Data(c('Washington', 'New York', 'Michigan'))
+      
+      
+      
     
 P.S. Hans Rosling used the precursor of googleVis in an amazing Ted talk from 2006:
     https://www.youtube.com/watch?v=RUwS1uAdUcI
