@@ -1,6 +1,8 @@
 
 Data visualization of the NY Times COVID-19 data (https://github.com/nytimes/covid-19-data) via R code using the googleVis package (https://github.com/mages/googleVis). With GitHub, the git app, and R coding the website is automatically updated with new NY Times data at an interval set in the 'mainloop.R' script.
 
+Many addtional 
+
 Browser requirements:
 
 The browser needs to allow the Adobe Flash player to run, Firefox and Opera both make this an easy 2 clicks with clear prompting.
