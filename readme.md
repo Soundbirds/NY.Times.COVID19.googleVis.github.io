@@ -42,7 +42,7 @@ Using R, after installing the necessary libraries from CRAN, the state data can 
 
 The website for the county data is updated daily here: https://soundbirds.github.io/NY.Times.COVID19.googleVis.github.io/COVID_counties.htm
 
-The county data can be interactively plotted by listing the states desired in the gVisCOVID.NYT.Data() function. For the county data, selecting too many states may be slow. 
+In R, the county data can be interactively plotted by listing the states desired in the gVisCOVID.NYT.Data() function. For the county data, selecting too many states may be slow. 
 
 Note, that I have added extra unique codes to the fips (Federal Information Processing Standards) unique county codes since they are missing for the added cities (e.g. New York) and unknown county within a state.
 
