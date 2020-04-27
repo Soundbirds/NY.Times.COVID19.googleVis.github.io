@@ -1,5 +1,5 @@
   
-  gVisCOVID.NYT.Data <- function(countyStates = NULL, width = 1365, height = 768, Print = FALSE) {
+  gVisCOVID.NYT.Data <- function(countyStates = NULL, width = 1400, height = 800, Print = FALSE) {
       
       library(googleVis)
       library(RCurl)
