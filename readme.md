@@ -32,6 +32,12 @@ Using R, after installing the necessary libraries from CRAN, the state data can 
       
       # For larger screens increase the width and height
       gVisCOVID.NYT.Data(width = 1400 * 1.5, height = 800 * 1.5) 
+      
+      # Using Print = TRUE, produces the HTML code (via googleVis:::print.gvis) which can be served on a website.
+      # Trying to look at the HTML code directly will create an URL starting with file://... 
+      #   and the motion chart is unlikely to be displayed because of Flash security settings. 
+      # See the googleVis vignette for more details. 
+      gVisCOVID.NYT.Data(width = 1400, height = 800, Print = TRUE)
      
 
 The website for the county data is updated daily here: https://soundbirds.github.io/NY.Times.COVID19.googleVis.github.io/COVID_counties.htm
