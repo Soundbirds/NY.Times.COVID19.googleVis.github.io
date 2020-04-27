@@ -1,7 +1,7 @@
 
 Data visualization of the NY Times COVID-19 data (https://github.com/nytimes/covid-19-data) via R code using the googleVis package (https://github.com/mages/googleVis). With GitHub, the git app, and R coding the website is automatically updated with new NY Times data at an interval set in the 'mainloop.R' script.
 
-Many additional ways to view that data have been added, including the number of new deaths per 1000 new cases 1 month ago: 'nwDthsPer1knwCasesMthAgo', the number of new deaths per 1000 new cases 2 weeks ago: 'nwDthsPer1knwCases2WkAgo', and doubling times: 'casesStateDoublingRate'.  Note that doubling times is the only variable where being longer (a larger number) is good.  Logs of many variables are included so that they can be used for the size and color of the circles, when desired. Using the built-in log of the x and y axes is recommended since the numbers shown when hovering with the mouse cursor will still be the unlogged value.
+Many additional ways to view that data have been added, including the number of new deaths per 1000 new cases 1 month ago: 'nwDthsPer1knwCasesMthAgo', the number of new deaths per 1000 new cases 2 weeks ago: 'nwDthsPer1knwCases2WkAgo', and doubling times: 'casesStateDoublingRate'.  Note that doubling times is the only variable where being longer (a larger number) is good.  Logs of many variables are included so that they can be used for the size and color of the circles, when desired. Using the built-in log on the x and y axes is recommended since the numbers shown when hovering with the mouse cursor will still be the unlogged value.
 
 Browser requirements:
 
