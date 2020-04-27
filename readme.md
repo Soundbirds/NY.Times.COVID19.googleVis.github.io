@@ -19,7 +19,7 @@ The website for the state data is updated daily (17" or larger screen recomended
 - Try changing both the x and y axis to log scale.
 - Note that the x-variable can be switched to 'Time' after loading into the web browser is completed (googleVis hangs if xvar starts with the timevar).
 
-After installing the necessary libraries from CRAN, the state data can be interactively plottted using the gVisCOVID.NYT.Data() function (downloaded from this repo), adjust the width and height to your screen:
+Using R, after installing the necessary libraries from CRAN, the state data can be interactively plottted using the gVisCOVID.NYT.Data() function (downloaded from this repo). Adjust the width and height to your screen size.
 
       # Installing RCurl from source may be an issue. The "win.binary" option will be ignored on Unix-alikes
       install.packages(c('googleVis', 'RCurl'), type = "win.binary")  
