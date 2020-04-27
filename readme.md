@@ -49,7 +49,8 @@ Note, that I have added extra unique codes to the fips (Federal Information Proc
       
       
     
-P.S. Hans Rosling used the precursor of googleVis in an amazing Ted talk from 2006:
+P.S. 
+Hans Rosling used the precursor of googleVis in an amazing Ted talk from 2006:
     https://www.youtube.com/watch?v=RUwS1uAdUcI
     
 
