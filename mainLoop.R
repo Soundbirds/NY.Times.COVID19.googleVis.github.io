@@ -26,7 +26,6 @@ while(TRUE) {
     git('commit --amend --no-edit')  
     git('push -u -v --force origin master')
     
-    Sys.sleep(15)
     setwd("C:/Users/John/")
     system(paste0("rm -r ", "NY.Times.COVID19.googleVis.github.io"))
     timestamp()
