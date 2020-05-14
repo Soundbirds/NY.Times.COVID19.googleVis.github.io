@@ -1,4 +1,5 @@
 
+
 while(TRUE) {
     
     # Initial setup
@@ -6,24 +7,25 @@ while(TRUE) {
     system(paste0("rm -r -f ", "NY.Times.COVID19.googleVis.github.io")) # Make sure this dir is deleted
     
     # Download function and scripts from GitHub
-    shell("echo git config --global user.name 'John Wallace' > run.bat")
-    shell("echo git config --global user.email 'soundbirds@gmail.com'  >> run.bat")
-    shell("echo git clone https://github.com/Soundbirds/NY.Times.COVID19.googleVis.github.io.git  >> run.bat")
-    shell("echo exit >> run.bat")
-    shell("start run.bat")
-    Sys.sleep(15)  # Default is for shell() to wait until process is done, but this pause appears needed
-    shell("del run.bat")
-    Sys.sleep(3)
+    
+    git("config --global user.name 'John Wallace'")
+    git("config --global user.email 'soundbirds@gmail.com'")
+    git("clone https://github.com/Soundbirds/NY.Times.COVID19.googleVis.github.io.git")
     
     # Run functions in R, downloading new state and county data from the NYT repo, and creating new html's using the googleVis package
     setwd("C:/Users/John/NY.Times.COVID19.googleVis.github.io")
     source('gVisCOVID.NYT.Data.R')
-    try(gVisCOVID.NYT.Data(width = 1365, height = 768, Print = TRUE))  # States
-    try(gVisCOVID.NYT.Data(c('Washington', 'New York', 'Michigan'), width = 1365, height = 768, Print = TRUE))  # Counties within the listed states (too many states is slow)
-    #  gVisCOVID.NYT.Data(width = 1365 * 1.5, height = 768 * 1.5, Print = FALSE)  # For interactive plotting to large screens
+    try(gVisCOVID.NYT.Data(width = 1400, height = 800, Print = TRUE))  # States
+    try(gVisCOVID.NYT.Data(c('Washington', 'New York', 'Michigan'), width = 1400, height = 800, Print = TRUE))  # Counties within the listed states (too many states is slow)
+    #  gVisCOVID.NYT.Data(width = 1400 * 1.5, height = 800 * 1.5, Print = FALSE)  # For interactive plotting to large screens
     
     # Push the updated html back to Github
-    shell("start Push.bat")
+    git('add COVID_counties.htm')
+    git('add COVID_states.htm')
+    git('add index.htm')
+    git('commit --amend --no-edit')  
+    git('push -u -v --force origin master')
+    
     Sys.sleep(15)
     setwd("C:/Users/John/")
     system(paste0("rm -r ", "NY.Times.COVID19.googleVis.github.io"))
@@ -38,5 +40,3 @@ while(TRUE) {
        timestamp()
     }
 }   
-
-
