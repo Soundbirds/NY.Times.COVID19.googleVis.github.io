@@ -1,13 +1,12 @@
 
+
 JRWToolBox::lib(googleVis)
 JRWToolBox::lib(RCurl)
-
-HomeDir <- getwd()
 
 while(TRUE) {
 
     # Initial setup
-    setwd(HomeDir)
+    setwd(C:/Users/Public")
     system(paste0("rm -r -f ", "NY.Times.COVID19.googleVis.github.io")) # Make sure this directory is deleted
     
     # Download function and scripts from GitHub
