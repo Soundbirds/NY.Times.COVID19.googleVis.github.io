@@ -1,16 +1,20 @@
 
+JRWToolBox::lib(googleVis)
+JRWToolBox::lib(RCurl)
+
+HomeDir <- getwd()
 
 while(TRUE) {
-    
+
     # Initial setup
-    setwd("C:/Users/John/")
-    system(paste0("rm -r -f ", "NY.Times.COVID19.googleVis.github.io")) # Make sure this dir is deleted
+    setwd(HomeDir)
+    system(paste0("rm -r -f ", "NY.Times.COVID19.googleVis.github.io")) # Make sure this directory is deleted
     
     # Download function and scripts from GitHub
     
-    git("config --global user.name 'John Wallace'")
-    git("config --global user.email 'soundbirds@gmail.com'")
-    git("clone https://github.com/Soundbirds/NY.Times.COVID19.googleVis.github.io.git")
+    JRWToolBox::git("config --global user.name 'John Wallace'")
+    JRWToolBox::git("config --global user.email 'soundbirds@gmail.com'")
+    JRWToolBox::git("clone https://github.com/Soundbirds/NY.Times.COVID19.googleVis.github.io.git")
     
     # Run functions in R, downloading new state and county data from the NYT repo, and creating new html's using the googleVis package
     setwd("C:/Users/John/NY.Times.COVID19.googleVis.github.io")
@@ -20,11 +24,11 @@ while(TRUE) {
     #  gVisCOVID.NYT.Data(width = 1400 * 1.5, height = 800 * 1.5, Print = FALSE)  # For interactive plotting to large screens
     
     # Push the updated html back to Github
-    git('add COVID_counties.htm')
-    git('add COVID_states.htm')
-    git('add index.htm')
-    git('commit --amend --no-edit')  
-    git('push -u -v --force origin master')
+    JRWToolBox::git('add COVID_counties.htm')
+    JRWToolBox::git('add COVID_states.htm')
+    JRWToolBox::git('add index.htm')
+    JRWToolBox::git('commit --amend --no-edit')  
+    JRWToolBox::git('push -u -v --force origin master')
     
     setwd("C:/Users/John/")
     system(paste0("rm -r ", "NY.Times.COVID19.googleVis.github.io"))
@@ -39,3 +43,4 @@ while(TRUE) {
        timestamp()
     }
 }   
+
