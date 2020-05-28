@@ -5,12 +5,11 @@ JRWToolBox::lib(RCurl)
 
 while(TRUE) {
 
-    # Initial setup
+    # Initial setup (replace with your personal GitHub account and URL info)
     setwd("C:/Users/Public")
     system(paste0("rm -r -f ", "NY.Times.COVID19.googleVis.github.io")) # Make sure this directory is deleted
     
-    # Download function and scripts from GitHub
-    
+    # Download function and scripts from GitHub (you will be asked once for your password, if you not already logged into GitHub).
     JRWToolBox::git("config --global user.name 'John Wallace'")
     JRWToolBox::git("config --global user.email 'soundbirds@gmail.com'")
     JRWToolBox::git("clone https://github.com/Soundbirds/NY.Times.COVID19.googleVis.github.io.git")
