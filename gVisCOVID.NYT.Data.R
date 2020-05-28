@@ -1,8 +1,8 @@
   
   gVisCOVID.NYT.Data <- function(countyStates = NULL, width = 1400, height = 800, Print = FALSE) {
       
-      library(googleVis)
-      library(RCurl)
+      JRWToolBox::lib(googleVis)
+      JRWToolBox::lib(RCurl)
             
       ma <- function(x, n = 21) { stats::filter(x, rep(1 / n, n), sides = 2) }
       
