@@ -16,7 +16,7 @@ while(TRUE) {
     JRWToolBox::git("clone https://github.com/Soundbirds/NY.Times.COVID19.googleVis.github.io.git")
     
     # Run functions in R, downloading new state and county data from the NYT repo, and creating new html's using the googleVis package
-    setwd("C:/Users/John/NY.Times.COVID19.googleVis.github.io")
+    setwd("C:/Users/Public/NY.Times.COVID19.googleVis.github.io")
     source('gVisCOVID.NYT.Data.R')
     try(gVisCOVID.NYT.Data(width = 1400, height = 800, Print = TRUE))  # States
     try(gVisCOVID.NYT.Data(c('Washington', 'New York', 'Michigan'), width = 1400, height = 800, Print = TRUE))  # Counties within the listed states (too many states is slow)
@@ -29,7 +29,7 @@ while(TRUE) {
     JRWToolBox::git('commit --amend --no-edit')  
     JRWToolBox::git('push -u -v --force origin master')
     
-    setwd("C:/Users/John/")
+    setwd("C:/Users/Public/")
     system(paste0("rm -r ", "NY.Times.COVID19.googleVis.github.io"))
     timestamp()
    
