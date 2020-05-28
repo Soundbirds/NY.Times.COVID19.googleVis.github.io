@@ -6,7 +6,7 @@ JRWToolBox::lib(RCurl)
 while(TRUE) {
 
     # Initial setup
-    setwd(C:/Users/Public")
+    setwd("C:/Users/Public")
     system(paste0("rm -r -f ", "NY.Times.COVID19.googleVis.github.io")) # Make sure this directory is deleted
     
     # Download function and scripts from GitHub
