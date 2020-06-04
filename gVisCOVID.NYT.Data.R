@@ -1,6 +1,7 @@
   
   gVisCOVID.NYT.Data <- function(countyStates = NULL, width = 1400, height = 800, Print = FALSE) {
-      
+       
+      library(JRWToolBox)
       JRWToolBox::lib(googleVis)
       JRWToolBox::lib(RCurl)
             
@@ -136,5 +137,6 @@
      }
   }    
   
+
 
 
