@@ -1,4 +1,5 @@
-
+mainLoop <- fucntion() {
+    
 JRWToolBox::lib(rgit)
 JRWToolBox::lib(googleVis)
 JRWToolBox::lib(RCurl)
@@ -41,5 +42,5 @@ while(TRUE) {
        timestamp()
     }
 }   
-
+}
 
