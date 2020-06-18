@@ -1,4 +1,4 @@
-mainLoop <- fucntion() {
+mainLoop <- function() {
     
    JRWToolBox::lib(rgit)
    JRWToolBox::lib(googleVis)
