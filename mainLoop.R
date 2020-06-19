@@ -9,10 +9,6 @@ rgit::S(mainLoop, gitPath = 'Soundbirds/NY.Times.COVID19.googleVis.github.io/mas
       
 }
 
-
-
-
-
 mainLoop <- function() {
     
    JRWToolBox::lib(rgit)
