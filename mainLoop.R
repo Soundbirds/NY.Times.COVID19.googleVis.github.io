@@ -1,3 +1,18 @@
+
+# Run the mainloop using rgit::S(). (The git app needs to configured for 'Soundbirds' user.)
+if(FALSE) {
+      
+library(JRWToolBox)
+JRWToolBox::lib(rgit, attach = FALSE)
+
+rgit::S(mainLoop, gitPath = 'Soundbirds/NY.Times.COVID19.googleVis.github.io/master/', viewOnly = TRUE, run = TRUE)
+      
+}
+
+
+
+
+
 mainLoop <- function() {
     
    JRWToolBox::lib(rgit)
